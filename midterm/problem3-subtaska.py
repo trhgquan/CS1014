@@ -8,7 +8,7 @@ def original():
     model = LpProblem('problem3-subtaska', LpMinimize)
     model += 2 * x1 - x2 + 4 * x3, 'target'
     model += x1 - x2 + 2 * x3 == 5, 'first requirement'
-    model += 2 * x1 - x2 + x3 <= 3, 'second requirement'
+    model += 2 * x1 - x2 + x3 >= 3, 'second requirement'
 
     model.solve()
 
