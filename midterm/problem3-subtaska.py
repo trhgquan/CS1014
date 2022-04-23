@@ -21,7 +21,7 @@ def original():
 
 def new():
     y1 = LpVariable('y1')
-    y2 = LpVariable('y2', upBound = 0)
+    y2 = LpVariable('y2', lowBound = 0)
 
     model = LpProblem('problem3-subtaska', LpMaximize)
     model += 5 * y1 + 3 * y2, 'target'
