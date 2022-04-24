@@ -9,7 +9,7 @@ def main():
     model += 29 * x + 4 * y, 'target'
     model += 9 * x - 3 * y <= 23, 'first requirement'
     model += 3 * x - 8 * y >= -22, 'second requirement'
-    model += x + y <= 5, 'third requirement'
+    model += x + y >= 5, 'third requirement'
 
     model.solve()
 
