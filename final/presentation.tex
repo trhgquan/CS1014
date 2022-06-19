@@ -62,10 +62,10 @@ Hence, we can easily estimate an upper and lower bound of $\displaystyle {2n \ch
 
 $$
 \frac{4^{n}}{2n} \leq {2n \choose n} \leq 4^{n} \ (n \in \mathbb{N^+})
-$$
+$$\cite{Vanderbei2020}
 \end{frame}
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.)}
-\begin{theorem}[Stirling's approximation]
+\begin{theorem}[Stirling's approximation\cite{weisstein}]
 $$
 \displaystyle
 n! \operatorname*{\sim}_{n\to\infty} \sqrt{2\pi n}\left(\frac{n}{e}\right)^n
@@ -84,7 +84,7 @@ Hence, $\displaystyle {2n \choose n} \operatorname*{\sim}_{n\to\infty} \frac{2\s
 Let
 $$
 \displaystyle
-L = \frac{\frac{4^n}{2n}}{\frac{4^n}{\sqrt{\pi n}}} = \frac{4^n\sqrt{\pi n}}{4^n 2n} = \frac{\sqrt{\pi}}{2} \frac{1}{\sqrt{n}} < 1\ \forall n \in \mathbb{N^+}
+L = \frac{\frac{4^n}{2n}}{\frac{4^n}{\sqrt{\pi n}}} = \frac{4^n\sqrt{\pi n}}{4^n 2n} = \frac{\sqrt{\pi}}{2} \frac{1}{\sqrt{n}} < 1,\ \forall n \in \mathbb{N^+}
 $$
 Since $L < 1$, we can state that $\frac{4^n}{2n} \leq \frac{4^n}{\sqrt{\pi n}},\ \forall n \in \mathbb{N^+}
 $
@@ -94,7 +94,7 @@ $$
 \frac{4^n}{2n} \leq \frac{4^n}{\sqrt{\pi n}} \leq 4^n \iff \frac{4^n}{2n} \leq {2n \choose n} \leq 4^n
 $$
 \end{proof}
-This states that by the worst case, the algorithm has the complexity of $\Theta(4^n)$.
+This states that in the worst case, the algorithm has the complexity of $\Theta(4^n)$.
 \end{frame}
 
 \section{Empirical Average Performance of the Simplex Method}
