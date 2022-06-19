@@ -1,23 +1,24 @@
 \documentclass[10pt]{beamer}
-\usepackage[utf8]{vietnam}
-%\usepackage[T1]{vietnam}
 \usepackage{lmodern}
-\usetheme{Darmstadt}
+\usefonttheme{structurebold}
+\usetheme{Rochester}
 
 \usepackage[backend=biber]{biblatex}
 
 \addbibresource{presentation.bib}
 
+\setbeamertemplate{navigation symbols}{\insertlogo}
+
 \begin{document}
-\author{Đoàn Thu Ngân, Trần Hoàng Quân, Huỳnh Tấn Thọ, Sử Nhật Đăng, Phan Đặng Diễm Uyên}
+\author{Thu-Ngan Doan, Hoang-Quan Tran, Tan-Tho Huynh, Nhat-Dang Su, Diem-Uyen Phan-Dang}
 \title{Efficiency of the Simplex Method}
 \subtitle{Investigating on how fast Simplex Method will solve a problem in a given size.}
-\logo{img/fithcmuslogo.png}
+\logo{\includegraphics[scale=.2]{img/fithcmuslogo.png}}
 \institute{VNUHCM - University of Science}
 \date{Spring 2022}
 \subject{CSC10104 - Linear Programming}
 
-%\setbeamercovered{transparent}
+\setbeamercovered{transparent}
 \setbeamertemplate{navigation symbols}{}
 
 \begin{frame}[plain]
@@ -56,45 +57,60 @@ Worst-case analyses are generally easier than Average-case.
 
 \section{Worst-case Analysis of the Simplex Method}
 \begin{frame}{Worst-case Analysis of the Simplex Method}
-The upper bound of basic feasible solutions is $\displaystyle {n + m \choose n}$. For a fixed value of the sum $n + m$, this expression is maximized when $m = n$.
-
-Hence, we can easily estimate an upper and lower bound of $\displaystyle {2n \choose n}$:
-
+\begin{itemize}
+\item The upper bound of basic feasible solutions is $\displaystyle {n + m \choose n}$.
+\item For a fixed value of the sum $n + m$, this expression is maximized when $m = n$.
+\item Hence, we can easily estimate an upper and lower bound of $\displaystyle {2n \choose n}$\cite{Vanderbei2020}:
 $$
-\frac{4^{n}}{2n} \leq {2n \choose n} \leq 4^{n} \ (n \in \mathbb{N^+})
-$$\cite{Vanderbei2020}
+\frac{2^{2n}}{2n} \leq {2n \choose n} \leq 2^{2n} \ (n \in \mathbb{N^+})
+$$
+\end{itemize}
 \end{frame}
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.)}
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Proof}
 \begin{theorem}[Stirling's approximation\cite{weisstein}]
 $$
 \displaystyle
 n! \operatorname*{\sim}_{n\to\infty} \sqrt{2\pi n}\left(\frac{n}{e}\right)^n
 $$
 \end{theorem}
-Given that $\displaystyle {2n \choose n} = \frac{(2n)!}{(n!)^2}$ and following expressions:
+Given that $\displaystyle {2n \choose n} = \frac{(2n)!}{(n!)^2}$\footnote{${n \choose k} = \frac{n!}{(n - k)!k!}$} and following expressions:
 \begin{itemize}
 \item $\displaystyle (2n)! \operatorname*{\sim}_{n\to\infty} 2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}$ 
 \item $\displaystyle (n!)^2 \operatorname*{\sim}_{n\to\infty} 2\pi n \left(\frac{n}{e}\right)^{2n}$ 
 \end{itemize}
-Hence, $\displaystyle {2n \choose n} \operatorname*{\sim}_{n\to\infty} \frac{2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}}{2\pi n \left(\frac{n}{e}\right)^{2n}} =  \frac{4^n}{\sqrt{\pi n}}$
+Hence, $\displaystyle {2n \choose n} \operatorname*{\sim}_{n\to\infty} \frac{2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}}{2\pi n \left(\frac{n}{e}\right)^{2n}} =  \frac{2^{2n}}{\sqrt{\pi n}}$
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.)}
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Proof}
 \begin{proof}
 Let
 $$
 \displaystyle
-L = \frac{\frac{4^n}{2n}}{\frac{4^n}{\sqrt{\pi n}}} = \frac{4^n\sqrt{\pi n}}{4^n 2n} = \frac{\sqrt{\pi}}{2} \frac{1}{\sqrt{n}} < 1,\ \forall n \in \mathbb{N^+}
+L = \frac{\frac{2^{2n}}{2n}}{\frac{2^{2n}}{\sqrt{\pi n}}} = \frac{2^{2n}\sqrt{\pi n}}{2^{2n} 2n} = \frac{\sqrt{\pi}}{2} \frac{1}{\sqrt{n}} < 1,\ \forall n \in \mathbb{N^+}
 $$
-Since $L < 1$, we can state that $\frac{4^n}{2n} \leq \frac{4^n}{\sqrt{\pi n}},\ \forall n \in \mathbb{N^+}
+Since $L < 1$, we can state that $\frac{2^{2n}}{2n} \leq \frac{2^{2n}}{\sqrt{\pi n}},\ \forall n \in \mathbb{N^+}
 $
 . Hence,
 $$
 \displaystyle
-\frac{4^n}{2n} \leq \frac{4^n}{\sqrt{\pi n}} \leq 4^n \iff \frac{4^n}{2n} \leq {2n \choose n} \leq 4^n
+\frac{2^{2n}}{2n} \leq \frac{2^{2n}}{\sqrt{\pi n}} \leq 2^{2n} \iff \frac{2^{2n}}{2n} \leq {2n \choose n} \leq 2^{2n}
 $$
 \end{proof}
-This states that in the worst case, the algorithm has the complexity of $\Theta(4^n)$.
+This states that in the worst case, the algorithm has the complexity of $\Theta(2^{2n})$. $2^{2n}$ is huge even though $n$ is \textit{not} very big. (e.g with $n = 25$, $2^{50} = 1.1259\times 10^{15}$)
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+In 1972, V. Klee and G.J. Minty were the first to discover an example in which the
+simplex method using the largest coefficient rule requires $2^n - 1$ iterations to solve:
+\begin{equation*}
+\begin{aligned}
+\begin{cases}
+\sum_{j = 1}^{n} 2^{n - j} x_j \rightarrow \max \\
+2\sum_{j = 1}^{i - 1} 2^{i - j}x_j + x_i \leq 100^{i - 1} & (i = 1, 2, .., n)\\
+x_j \geq 0 & (j = 1, 2, .., n)
+\end{cases}
+\end{aligned}
+\end{equation*}
 \end{frame}
 
 \section{Empirical Average Performance of the Simplex Method}
