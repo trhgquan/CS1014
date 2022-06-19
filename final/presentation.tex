@@ -2,7 +2,7 @@
 \usepackage[utf8]{vietnam}
 %\usepackage[T1]{vietnam}
 \usepackage{lmodern}
-\usetheme{Dresden}
+\usetheme{Darmstadt}
 
 \usepackage[backend=biber]{biblatex}
 
@@ -18,7 +18,7 @@
 \subject{CSC10104 - Linear Programming}
 
 %\setbeamercovered{transparent}
-%\setbeamertemplate{navigation symbols}{}
+\setbeamertemplate{navigation symbols}{}
 
 \begin{frame}[plain]
 \maketitle
@@ -36,7 +36,12 @@
 
 \section{Performance Measures}
 \begin{frame}{Performance Measures}
-
+Can be divied into two types:
+\begin{itemize}
+\item Worst case: asking how much efforts is needed to solve all problems of a given \textit{size}
+\item Average case: looking at the average amount of effort, averaging over all problems of a giving \textit{size}. 
+\end{itemize}
+Worst-case analyses are generally easier than Average-case.
 \end{frame}
 
 \section{Measuring the Size of a Problem}
@@ -51,11 +56,45 @@
 
 \section{Worst-case Analysis of the Simplex Method}
 \begin{frame}{Worst-case Analysis of the Simplex Method}
+The upper bound of basic feasible solutions is $\displaystyle {n + m \choose n}$. For a fixed value of the sum $n + m$, this expression is maximized when $m = n$.
 
+Hence, we can easily estimate an upper and lower bound of $\displaystyle {2n \choose n}$:
+
+$$
+\frac{4^{n}}{2n} \leq {2n \choose n} \leq 4^{n} \ (n \in \mathbb{N^+})
+$$
+\end{frame}
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.)}
+\begin{theorem}[Stirling's approximation]
+$$
+\displaystyle
+n! \operatorname*{\sim}_{n\to\infty} \sqrt{2\pi n}\left(\frac{n}{e}\right)^n
+$$
+\end{theorem}
+Given that $\displaystyle {2n \choose n} = \frac{(2n)!}{(n!)^2}$ and following expressions:
+\begin{itemize}
+\item $\displaystyle (2n)! \operatorname*{\sim}_{n\to\infty} 2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}$ 
+\item $\displaystyle (n!)^2 \operatorname*{\sim}_{n\to\infty} 2\pi n \left(\frac{n}{e}\right)^{2n}$ 
+\end{itemize}
+Hence, $\displaystyle {2n \choose n} \operatorname*{\sim}_{n\to\infty} \frac{2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}}{2\pi n \left(\frac{n}{e}\right)^{2n}} =  \frac{4^n}{\sqrt{\pi n}}$
 \end{frame}
 
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.)}
-Problem: proving $\displaystyle \frac{1}{2n}2^{2n} \leq C_{2n}^n \leq 2^{2n} $\cite{Vanderbei2020}
+\begin{proof}
+Let
+$$
+\displaystyle
+L = \frac{\frac{4^n}{2n}}{\frac{4^n}{\sqrt{\pi n}}} = \frac{4^n\sqrt{\pi n}}{4^n 2n} = \frac{\sqrt{\pi}}{2} \frac{1}{\sqrt{n}} < 1\ \forall n \in \mathbb{N^+}
+$$
+Since $L < 1$, we can state that $\frac{4^n}{2n} \leq \frac{4^n}{\sqrt{\pi n}},\ \forall n \in \mathbb{N^+}
+$
+. Hence,
+$$
+\displaystyle
+\frac{4^n}{2n} \leq \frac{4^n}{\sqrt{\pi n}} \leq 4^n \iff \frac{4^n}{2n} \leq {2n \choose n} \leq 4^n
+$$
+\end{proof}
+This states that by the worst case, the algorithm has the complexity of $\Theta(4^n)$.
 \end{frame}
 
 \section{Empirical Average Performance of the Simplex Method}
