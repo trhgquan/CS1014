@@ -1,5 +1,6 @@
 \documentclass[10pt]{beamer}
 \usepackage{lmodern}
+\usepackage{amsmath}
 \usefonttheme{structurebold}
 \usetheme{Rochester}
 
@@ -100,18 +101,49 @@ This states that in the worst case, the algorithm has the complexity of $\Theta(
 \end{frame}
 
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
-In 1972, V. Klee and G.J. Minty were the first to discover an example in which the
+In 1972, V. Klee and G.J. Minty\cite{klee1970good} were the first to discover an example in which the
 simplex method using the largest coefficient rule requires $2^n - 1$ iterations to solve:
 \begin{equation*}
+\sum_{j = 1}^{n} 2^{n - j} x_j \rightarrow \max
+\end{equation*}
+subjects to
+\begin{equation*}
 \begin{aligned}
-\begin{cases}
-\sum_{j = 1}^{n} 2^{n - j} x_j \rightarrow \max \\
-2\sum_{j = 1}^{i - 1} 2^{i - j}x_j + x_i \leq 100^{i - 1} & (i = 1, 2, .., n)\\
-x_j \geq 0 & (j = 1, 2, .., n)
-\end{cases}
+2\sum_{j = 1}^{i - 1} 2^{i - j}x_j + x_i &\leq 100^{i - 1} & (i = 1, 2, .., n)\\
+x_j &\geq 0 & (j = 1, 2, .., n)
 \end{aligned}
 \end{equation*}
 \end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+If we look closely, the first 3 constraints are:
+\begin{equation*}
+\begin{aligned}
+x_1 &\leq 1\\
+4x_1 + x_2 &\leq 10^2\\
+8x_1 + 4x_2 + x_3 &\leq 10^4
+\end{aligned}
+\end{equation*}
+These constraints are just simply a set of upper bounds. The feasible region is now a stretched $n$-dimensional hypercube:
+\begin{equation*}
+\begin{aligned}
+0 \leq x_1 &\leq 1\\
+0 \leq x_2 &\leq 100\\
+&\vdots\\
+0 \leq x_n &\leq 100^{n - 1}
+\end{aligned}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+This feasible region for the Klee-Minty problem is often referred as the Klee-Minty cube\footnote{more percisely, a hyperrectangle}.
+\begin{figure}
+	\includegraphics[scale=.2]{img/klee-minty-cube.png}
+	\caption{Klee-Minty cube with $n = 3$ and $\epsilon = \frac{1}{3}$}
+\end{figure}
+An $n$-dimension hypercube has $2^n$ vertices.
+\end{frame}
+
 
 \section{Empirical Average Performance of the Simplex Method}
 \begin{frame}{Empirical Average Performance of the Simplex Method}
