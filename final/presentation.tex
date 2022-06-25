@@ -1,5 +1,6 @@
 \documentclass[10pt]{beamer}
 \usepackage{lmodern}
+\usepackage[utf8]{vietnam}
 \usepackage{amsmath}
 \usefonttheme{structurebold}
 \usetheme{Rochester}
@@ -27,12 +28,12 @@
 \end{frame}
 
 \begin{frame}
-\frametitle{Table of Contents}
+\frametitle{Mục lục}
 \tableofcontents
 \end{frame}
 
-\section{Introduction}
-\begin{frame}{Introduction}
+\section{Giới thiệu}
+\begin{frame}{Giới thiệu}
 
 \end{frame}
 
@@ -59,54 +60,52 @@ Worst-case analyses are generally easier than Average-case.
 \section{Worst-case Analysis of the Simplex Method}
 \begin{frame}{Worst-case Analysis of the Simplex Method}
 \begin{itemize}
-\item The upper bound of basic feasible solutions is $\displaystyle {n + m \choose n}$.
-\item For a fixed value of the sum $n + m$, this expression is maximized when $m = n$.
-\item Hence, we can easily estimate an upper and lower bound of $\displaystyle {2n \choose n}$\cite{Vanderbei2020}:
+\item Số phương án chấp nhận được tối đa có thể chọn là $\displaystyle \binom{n + m}{n}$.
+\item Trong trường hợp xấu nhất, $n + m$ đạt giá trị lớn nhất khi $m = n$.
+\item Ta có thể ước lượng một chặn trên và chặn dưới của $\displaystyle \binom{2n}{n}$\cite{Vanderbei2020}:
 $$
-\frac{2^{2n}}{2n} \leq {2n \choose n} \leq 2^{2n} \ (n \in \mathbb{N^+})
+\frac{2^{2n}}{2n} \leq \binom{2n}{n} \leq 2^{2n} \ (n \in \mathbb{N^+})
 $$
 \end{itemize}
 \end{frame}
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Proof}
-\begin{theorem}[Stirling's approximation\cite{weisstein}]
+\begin{theorem}[Xấp xỉ Stirling\cite{weisstein}]
 $$
 \displaystyle
 n! \operatorname*{\sim}_{n\to\infty} \sqrt{2\pi n}\left(\frac{n}{e}\right)^n
 $$
 \end{theorem}
-Given that $\displaystyle {2n \choose n} = \frac{(2n)!}{(n!)^2}$\footnote{${n \choose k} = \frac{n!}{(n - k)!k!}$} and following expressions:
+Khai triển $\displaystyle \binom{2n}{n} = \frac{(2n)!}{(n!)^2}$\footnote{$\binom{n}{k} = \frac{n!}{(n - k)!k!}$}. Ta cũng có các xấp xỉ sau:
 \begin{itemize}
 \item $\displaystyle (2n)! \operatorname*{\sim}_{n\to\infty} 2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}$ 
 \item $\displaystyle (n!)^2 \operatorname*{\sim}_{n\to\infty} 2\pi n \left(\frac{n}{e}\right)^{2n}$ 
 \end{itemize}
-Hence, $\displaystyle {2n \choose n} \operatorname*{\sim}_{n\to\infty} \frac{2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}}{2\pi n \left(\frac{n}{e}\right)^{2n}} =  \frac{2^{2n}}{\sqrt{\pi n}}$
+Qua đó, $\displaystyle \binom{2n}{n} \operatorname*{\sim}_{n\to\infty} \frac{2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}}{2\pi n \left(\frac{n}{e}\right)^{2n}} =  \frac{2^{2n}}{\sqrt{\pi n}}$
 \end{frame}
 
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Proof}
 \begin{proof}
-Let
+Gọi
 $$
 \displaystyle
-L = \frac{\frac{2^{2n}}{2n}}{\frac{2^{2n}}{\sqrt{\pi n}}} = \frac{2^{2n}\sqrt{\pi n}}{2^{2n} 2n} = \frac{\sqrt{\pi}}{2} \frac{1}{\sqrt{n}} < 1,\ \forall n \in \mathbb{N^+}
+L = \frac{\frac{2^{2n}}{2n}}{\frac{2^{2n}}{\sqrt{\pi n}}} = \frac{2^{2n}\sqrt{\pi n}}{2^{2n} 2n} = \frac{\sqrt{\pi}}{2\sqrt{n}} < 1,\ \forall n \in \mathbb{N^+}
 $$
-Since $L < 1$, we can state that $\frac{2^{2n}}{2n} \leq \frac{2^{2n}}{\sqrt{\pi n}},\ \forall n \in \mathbb{N^+}
-$
-. Hence,
+Do $L < 1$, ta có thể kết luận $\frac{2^{2n}}{2n} \leq \frac{2^{2n}}{\sqrt{\pi n}},\ \forall n \in \mathbb{N^+}
+$. Khi đó
 $$
 \displaystyle
-\frac{2^{2n}}{2n} \leq \frac{2^{2n}}{\sqrt{\pi n}} \leq 2^{2n} \iff \frac{2^{2n}}{2n} \leq {2n \choose n} \leq 2^{2n}
+\frac{2^{2n}}{2n} \leq \frac{2^{2n}}{\sqrt{\pi n}} \leq 2^{2n} \iff \frac{2^{2n}}{2n} \leq \binom{2n}{n} \leq 2^{2n}
 $$
 \end{proof}
-This states that in the worst case, the algorithm has the complexity of $\Theta(2^{2n})$. $2^{2n}$ is huge even though $n$ is \textit{not} very big. (e.g with $n = 25$, $2^{50} = 1.1259\times 10^{15}$)
+Trong trường hợp xấu nhất, thuật toán có độ phức tạp thuộc nhóm $\mathcal{O}(2^{2n})$. $2^{2n}$ \textbf{rất lớn} dù $n$ không lớn lắm. (e.g $n = 25$, $2^{50} = 1.1259\times 10^{15}$)
 \end{frame}
 
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
-In 1972, V. Klee and G.J. Minty\cite{klee1970good} were the first to discover an example in which the
-simplex method using the largest coefficient rule requires $2^n - 1$ iterations to solve:
+Năm 1972, V. Klee and G.J. Minty\cite{klee1970good} đề xuất bài toán Minty-Klee, theo đó phương pháp đơn hình cần ít nhất $2^n - 1$ lần lặp để giải:
 \begin{equation*}
 \sum_{j = 1}^{n} 2^{n - j} x_j \rightarrow \max
 \end{equation*}
-subjects to
+các ràng buộc
 \begin{equation*}
 \begin{aligned}
 2\sum_{j = 1}^{i - 1} 2^{i - j}x_j + x_i &\leq 100^{i - 1} & (i = 1, 2, .., n)\\
@@ -116,7 +115,7 @@ x_j &\geq 0 & (j = 1, 2, .., n)
 \end{frame}
 
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
-If we look closely, the first 3 constraints are:
+Xét 3 ràng buộc đầu tiên:
 \begin{equation*}
 \begin{aligned}
 x_1 &\leq 1\\
@@ -124,7 +123,7 @@ x_1 &\leq 1\\
 8x_1 + 4x_2 + x_3 &\leq 10^4
 \end{aligned}
 \end{equation*}
-These constraints are just simply a set of upper bounds. The feasible region is now a stretched $n$-dimensional hypercube:
+Dễ thấy đây chỉ là tập các cận trên của mỗi biến:
 \begin{equation*}
 \begin{aligned}
 0 \leq x_1 &\leq 1\\
@@ -136,14 +135,28 @@ These constraints are just simply a set of upper bounds. The feasible region is 
 \end{frame}
 
 \begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
-This feasible region for the Klee-Minty problem is often referred as the Klee-Minty cube\footnote{more percisely, a hyperrectangle}.
-\begin{figure}
-	\includegraphics[scale=.2]{img/klee-minty-cube.png}
-	\caption{Klee-Minty cube with $n = 3$ and $\epsilon = \frac{1}{3}$}
-\end{figure}
-An $n$-dimension hypercube has $2^n$ vertices.
+Đặt $\beta_i = 100^{i - 1}$. Với $n = 3$, bài toán được phát biểu như sau:
+$$
+4x_1 + 2x_2 + x_3 - 2\beta_1 - \beta_2 - \frac{1}{2}\beta_3 \rightarrow \max
+$$
+Các ràng buộc:
+$$
+\begin{aligned}
+x_1 &\leq \beta_1\\
+4x_1 + x_2 &\leq 2\beta_1 + \beta_2\\
+8x_1 + 4x_2 + x_3 &\leq 4\beta_1 + 2\beta_2 + \beta_3
+\end{aligned}
+$$
 \end{frame}
 
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Miền chấp thuận của bài toán Klee-Minty còn được gọi là Siêu lập phương\footnote{Siêu lập phương $n$ chiều có $2^n$ đỉnh.} Klee-Minty.
+\begin{figure}
+\includegraphics[scale=.15]{img/klee-minty-cube.png}
+\caption{Ví dụ cho Siêu lập phương Klee-Minty với $n = 3$ và $\epsilon = \frac{1}{3}$}
+\end{figure}
+Phương pháp đơn hình sẽ xuất phát từ 1 đỉnh, đi qua tất cả các đỉnh trước khi tìm ra phương án tối ưu.
+\end{frame}
 
 \section{Empirical Average Performance of the Simplex Method}
 \begin{frame}{Empirical Average Performance of the Simplex Method}
