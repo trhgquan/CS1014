@@ -112,40 +112,35 @@ các ràng buộc
 x_j &\geq 0 & (j = 1, 2, .., n)
 \end{aligned}
 \end{equation*}
-\end{frame}
-
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
-Xét 3 ràng buộc đầu tiên:
-\begin{equation*}
-\begin{aligned}
+Theo đó 3 ràng buộc đầu tiên
+$$
+\left\{
+\begin{array}{lll}
 x_1 &\leq 1\\
 4x_1 + x_2 &\leq 10^2\\
 8x_1 + 4x_2 + x_3 &\leq 10^4
-\end{aligned}
-\end{equation*}
+\end{array}
+\right.
+$$
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
 Dễ thấy đây chỉ là tập các cận trên của mỗi biến:
-\begin{equation*}
-\begin{aligned}
+$$
+\begin{array}{lll}
+0 \leq x_1 &\leq 1\\
+0 \leq x_2 &\leq 10^2\\
+0 \leq x_3 &\leq 10^4
+\end{array}
+$$
+Do đó, tập các ràng buộc trở thành tập các cận trên, biến miền ràng buộc trên không gian $n$ chiều thành một siêu lập phương:
+$$
+\begin{array}{lll}
 0 \leq x_1 &\leq 1\\
 0 \leq x_2 &\leq 100\\
 &\vdots\\
 0 \leq x_n &\leq 100^{n - 1}
-\end{aligned}
-\end{equation*}
-\end{frame}
-
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
-Đặt $\beta_i = 100^{i - 1}$. Với $n = 3$, bài toán được phát biểu như sau:
-$$
-4x_1 + 2x_2 + x_3 - 2\beta_1 - \beta_2 - \frac{1}{2}\beta_3 \rightarrow \max
-$$
-Các ràng buộc:
-$$
-\begin{aligned}
-x_1 &\leq \beta_1\\
-4x_1 + x_2 &\leq 2\beta_1 + \beta_2\\
-8x_1 + 4x_2 + x_3 &\leq 4\beta_1 + 2\beta_2 + \beta_3
-\end{aligned}
+\end{array}
 $$
 \end{frame}
 
@@ -157,6 +152,236 @@ Miền chấp thuận của bài toán Klee-Minty còn được gọi là Siêu 
 \end{figure}
 Phương pháp đơn hình sẽ xuất phát từ 1 đỉnh, đi qua tất cả các đỉnh trước khi tìm ra phương án tối ưu.
 \end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Đặt $\beta_i = 100^{i - 1}$. Bài toán Minty-Klee có dạng tổng quát:
+$$
+\sum_{j = 1}^n 2^{n - j}x_j - \frac{1}{2}\sum_{j = 1}^n 2^{n - j}\beta_j \rightarrow \max
+$$
+các ràng buộc
+$$
+\begin{aligned}
+2\sum_{j = 1}^{i - 1} 2^{i - j}x_j + x_i &\leq \sum_{j = 1}^{i - 1}2^{i - j}\beta_j + \beta_i\ &(i = 1, 2, .., n)\\
+x_j &\geq 0 &(j = 1, 2, .., n)
+\end{aligned}
+$$
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Với $n = 3$, bài toán được phát biểu như sau:
+$$
+4x_1 + 2x_2 + x_3 - 2\beta_1 - \beta_2 - \frac{1}{2}\beta_3 \rightarrow \max
+$$
+Các ràng buộc:
+$$
+\left\{
+\begin{array}{lll}
+x_1 &\leq \beta_1\\
+4x_1 + x_2 &\leq 2\beta_1 + \beta_2\\
+8x_1 + 4x_2 + x_3 &\leq 4\beta_1 + 2\beta_2 + \beta_3
+\end{array}
+\right.
+$$
+Ta thêm biến để được các đẳng thức:
+$$
+\left\{
+\begin{array}{lll}
+x_1 & + \ x_4 & = \beta_1\\
+4x_1 + x_2 & + \ x_5 & = 2\beta_1 + \beta_2\\
+8x_1 + 4x_2 + x_3 & + \ x_6 & = 4\beta_1 + 2\beta_2 + \beta_3\\
+x_4, \ x_5, \ x_6 & &\geq 0
+\end{array}
+\right.
+$$
+Cơ sở: $(x_4, x_5, x_6)$
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Bảng đơn hình xuất phát:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_4$ & 0 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_5$ & 0 & $2\beta_1 + \beta_2$ & 4 & 1 & 0 & 0 & 1 & 0 \\
+$x_6$ & 0 & $4\beta_1 + 2\beta_2 + \beta_3$ & 8 & 4 & 1 & 0 & 0 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+& 0 & -4 & -2 & -1 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Tồn tại 3 cột ứng với $\Delta < 0$, ta chọn cột có $\Delta = -4$  
+\item So sánh: $\dfrac{\beta_1}{1} < \dfrac{2\beta_1 + \beta_2}{4} < \dfrac{4\beta_1 + 2\beta_2 + \beta_3}{8}$ nên ta chọn dòng 1  
+\item $x_4$ ra, $x_1$ vào
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Lần lặp thứ 1:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_1$ & 4 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_5$ & 0 & $-2\beta_1 + \beta_2$ & 0 & 1 & 0 & -4 & 1 & 0 \\
+$x_6$ & 0 & $-4\beta_1 + 2\beta_2 + \beta_3$ & 0 & 4 & 1 & -8 & 0 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+& $4\beta_1$ & 0 & -2 & -1 & 4 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Tồn tại 2 cột ứng với $\Delta < 0$, ta chọn cột có $\Delta = -2$
+\item So sánh: $\dfrac{-2\beta_1 + \beta_2}{1} < \dfrac{-4\beta_1 + 2\beta_2 + \beta_3}{4}$ nên ta chọn dòng 2
+\item $x_5$ ra, $x_2$ vào
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Lần lặp thứ 2:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_1$ & 4 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_2$ & 2 & $-2\beta_1 + \beta_2$ & 0 & 1 & 0 & -4 & 1 & 0 \\
+$x_6$ & 0 & $-2\beta_1 + \beta_2 + 2\beta_3$ & 0 & 0 & 1 & 8 & -4 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+& $2\beta_2$ & 0 & 0 & -1 & -4 & 2 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Tồn tại 2 cột ứng với $\Delta < 0$, ta chọn cột có $\Delta = -4$
+\item So sánh: $\dfrac{\beta_1}{1} < \dfrac{4\beta_1 - 2\beta_2 + \beta_3}{8}$ nên ta chọn dòng 1
+\item $x_1$ ra, $x_4$ vào
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Lần lặp thứ 3:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_4$ & 0 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_2$ & 2 & $2\beta_1 + \beta_2$ & 4 & 1 & 0 & 0 & 1 & 0 \\
+$x_6$ & 0 & $-4\beta_1 - 2\beta_2 + \beta_3$ & -8 & 0 & 1 & 0 & -4 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+& $4\beta_1 + 2\beta_2$ & 4 & 0 & -1 & 0 & 2 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Tồn tại 1 cột ứng với $\Delta < 0$, ta chọn cột $\Delta = -1$
+\item $x_6$ ra, $x_3$ vào
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Lần lặp thứ 4:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_4$ & 0 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_2$ & 2 & $2\beta_1 + \beta_2$ & 4 & 1 & 0 & 0 & 1 & 0 \\
+$x_3$ & 1 & $-4\beta_1 - 2\beta_2 + \beta_3$ & -8 & 0 & 1 & 0 & -4 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+& $\beta_3$ & -4 & 0 & 0 & 0 & -2 & 1 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Tồn tại 2 cột ứng với $\Delta < 0$, ta chọn cột $\Delta = -4$
+\item So sánh: $\dfrac{\beta_1}{1} < \dfrac{2\beta_1 + \beta_2}{4}$ nên ta chọn dòng 1
+\item $x_4$ ra, $x_1$ vào
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Lần lặp thứ 5
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_1$ & 4 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_2$ & 2 & $-2\beta_1 + \beta_2$ & 0 & 1 & 0 & -4 & 1 & 0 \\
+$x_3$ & 1 & $4\beta_1 - 2\beta_2 + \beta_3$ & 0 & 0 & 1 & 8 & -4 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+& $4\beta_1 + \beta_3$ & 0 & 0 & 0 & 4 & -2 & 1 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Tồn tại 1 cột ứng với $\Delta < 0$, ta chọn cột $\Delta = -2$
+\item $x_2$ ra, $x_5$ vào
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Lần lặp thứ 6
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_1$ & 4 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_5$ & 0 & $-2\beta_1 + \beta_2$ & 0 & 1 & 0 & -4 & 1 & 0 \\
+$x_3$ & 1 & $-4\beta_1 + 2\beta_2 + \beta_3$ & 0 & 4 & 1 & -8 & 0 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+& $2\beta_2 + \beta_3$ & 0 & 2 & 0 & -4 & 0 & 1 \\
+\hline
+\end{tabular}
+\end{table}
+\begin{itemize}
+\item Tồn tại 1 cột ứng với $\Delta < 0$, ta chọn cột $\Delta = -4$
+\item $x_1$ ra, $x_4$ vào
+\end{itemize}
+\end{frame}
+
+
+\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+Lần lặp thứ 7
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 4 & 2 & 1 & 0 & 0 & 0 \\
+\hline
+$x_4$ & 0 & $\beta_1$ & 1 & 0 & 0 & 1 & 0 & 0 \\
+$x_5$ & 0 & $2\beta_1 + \beta_2$ & 4 & 1 & 0 & 0 & 1 & 0 \\
+$x_3$ & 1 & $4\beta_1 + 2\beta_2 + \beta_3$ & 8 & 4 & 1 & 0 & 0 & 1 \\
+\hline
+\multicolumn{2}{|c|}{max}
+&  $4\beta_1 + 2\beta_2 + \beta_3$  & 4 & 2 & 0 & 0 & 0 & 1 \\
+\hline
+\end{tabular}
+\end{table}
+Tất cả $\Delta \ge 0$, bài toán tìm được phương án tối ưu $\max$.
+\end{frame}
+
 
 \section{Empirical Average Performance of the Simplex Method}
 \begin{frame}{Empirical Average Performance of the Simplex Method}
