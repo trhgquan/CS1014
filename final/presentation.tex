@@ -71,7 +71,6 @@ Xét các bài toán có cùng kích thước cố định, việc ước lượ
 \item Trường hợp xấu nhất: Tính toán chi phí cần thiết để giải bài toán \textbf{phức tạp nhất} trong số các bài toán đã cho.
 \item Trường hợp trung bình: Tính toán chi phí \textbf{trung bình} khi giải các bài toán có cùng kích thước.
 \end{itemize}
-Dễ thấy, trường hợp xấu nhất nhìn chung dễ ước lượng hơn so với trường hợp trung bình.
 \end{frame}
 
 \begin{frame}{Ước lượng hiệu năng thuật toán (cont.)}
@@ -106,55 +105,162 @@ Dễ thấy, trường hợp xấu nhất nhìn chung dễ ước lượng hơn 
 \end{multicols}
 \end{frame}
 
+\begin{frame}{Ước lượng hiệu năng thuật toán (cont.)}
+\begin{itemize}
+\item Dễ thấy, trường hợp xấu nhất nhìn chung dễ ước lượng hơn so với trường hợp trung bình.
+\item Tuy nhiên, trường hợp xấu nhất không sát với các bài toản gặp phải trong thực tế.
+\end{itemize}
+\end{frame}
+
+
 \section{Ước lượng kích thước bài toán}
 \begin{frame}{Ước lượng kích thước bài toán}
-Đầu tiên, làm cách nào để xác định quy mô của một vấn đề?
+Đầu tiên, làm cách nào để xác định kích thước của một bài toán?
 \begin{itemize}
-\item Thông thường, chúng ta sử dụng hai tham số m và n là tổng số phần tử dữ liệu để mô tả quy mô của một bài toán. 
-\item Nhưng tích số mn có một số nhược điểm nhất định khi có nhiều hoặc thậm chí hầu hết các phần tử dữ liệu bằng 0.
+\item Ta thường sử dụng hai tham số m - số ràng buộc và n - số biến. 
+\item Tuy nhiên, tích số mn - tổng số phần tử trong dữ liệu, còn hạn chế khi có nhiều hoặc hầu hết các phần tử dữ liệu bằng 0.
 \item Vì vậy, có lẽ thước đo tốt nhất về quy mô của bài toán không phải là số phần tử dữ liệu mà là số bit thực tế cần thiết để lưu trữ tất cả dữ liệu trên máy tính. Biện pháp này phổ biến trong hầu hết các nhà khoa học máy tính và thường được ký hiệu là L.
 \item Tuy nhiên, ở đây chúng ta sẽ chỉ tập trung vào m và n để mô tả quy mô của một vấn đề.
 \end{itemize}
 \end{frame}
 
-
-\section{Ước lượng chi phí để giải một bài toán}
-\begin{frame}{Ước lượng chi phí để giải một bài toán}
-Thứ hai, làm thế nào để xác định lượng công việc cần thiết để giải một bài toán?
+\begin{frame}{Ước lượng kích thước bài toán}
+Đầu tiên, làm cách nào để xác định kích thước bài toán?\\
 \begin{itemize}
-\item Câu trả lời tốt nhất là số giây mà máy tính cần để giải bài toán. Tuy nhiên, không phải ai cũng dùng chung một kiểu máy tính, và công nghệ máy tính thì luôn thay đổi nhanh chóng.
-\item May mắn thay, có một sự thay thế khá hợp lý. Bởi vì thuật toán nói chung là các quá trình lặp đi lặp lại, do đó, ta có thể sử dụng số lần lặp làm thước đo thay thế. Vì vậy, thời gian để giải quyết một vấn đề có thể được tính thành số lần lặp cần thiết để giải quyết vấn đề nhân với lượng thời gian cần thiết để thực hiện mỗi lần lặp.
+\item Hai tham số được nhắc đến một cách tự nhiên là \textit{m} - số ràng buộc và \textit{n} - số biến.
+\item Tổng số phần tử trong dữ liệu bài toán là \textit{m $\times$ n}.
+\item Kích thước bài toán = \textit{m $\times$ n}.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Ước lượng chi phí để giải một bài toán (cont.)}
-Thứ hai, làm thế nào để xác định lượng công việc cần thiết để giải một bài toán?
+\begin{frame}{Ước lượng kích thước bài toán (cont.)}
+Nếu bài toán có nhiều hoặc hầu hết các phần tử bằng 0?
 \begin{itemize}
-\item Câu trả lời tốt nhất là số giây mà máy tính cần để giải bài toán. Tuy nhiên, không phải ai cũng dùng chung một kiểu máy tính, và công nghệ máy tính thì luôn thay đổi nhanh chóng.
-\item May mắn thay, có một sự thay thế khá hợp lý. Bởi vì thuật toán nói chung là các quá trình lặp đi lặp lại, do đó, ta có thể sử dụng số lần lặp làm thước đo thay thế. Vì vậy, thời gian để giải quyết một vấn đề có thể được tính thành số lần lặp cần thiết để giải quyết vấn đề nhân với lượng thời gian cần thiết để thực hiện mỗi lần lặp.
+\item Dữ liệu đầu vào có nhiều số 0 cải thiện hiệu năng của bài toán.
+\item Kích thước bài toán = tổng số phần tử khác 0 trong dữ liệu.
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Ước lượng chi phí để giải một bài toán (cont.)}  
+\begin{frame}{Ước lượng kích thước bài toán (cont.)}
+Trong thực tế
 \begin{itemize}
-\item Yếu tố đầu tiên, số lần lặp lại, không phụ thuộc vào máy tính và do đó, là một thay thế hợp lý cho thời gian thực tế. 
-\item Đại diện này hữu ích khi so sánh các thuật toán khác nhau trong cùng một lớp thuật toán chung, trong đó thời gian mỗi lần lặp có thể được mong đợi là giống nhau giữa các thuật toán; Tuy nhiên, nó trở nên vô nghĩa khi người ta muốn so sánh hai thuật toán hoàn toàn khác nhau.
-\item  Hiện tại, chúng ta sẽ đo lượng nỗ lực để giải một bài toán QHTT bằng cách đếm số lần lặp cần thiết để giải nó.
+\item Tốc độ tính toán của con người (hoặc máy tính có độ chính xác vô hạn) khi nhân hai số khác nhau phụ thuộc vào kiểu dữ liệu của hai số
+\item Ví dụ: 23 $\times$ 7 sẽ nhanh hơn 23453.2352 $\times$ 86833.245623
+\end{itemize}
+$\rightarrow$ Cách tính tốt hơn: \textbf{số lượng bit} cần thiết để lưu trữ dữ liệu bài toán trên máy tính - ký hiệu \textit{L}.
+\end{frame}
+
+\begin{frame}{Ước lượng kích thước bài toán (cont.)}
+Tuy nhiên, kết quả \textit{L} còn mơ hồ, không thể xác định rõ là
+\begin{itemize}
+\item Số lượng bit đầu vào cần thiết để chỉ rõ các hệ số ràng buộc, hệ số hàm mục tiêu, kết quả vế phải khác 0.
+\item Số lượng bit trong dữ liệu gốc + Số lượng bit trong mô tả bài toán.
+\end{itemize}
+$\rightarrow$ Ta chỉ tập trung vào hai tham số \textit{m} và \textit{n} khi mô tả kích thước bài toán.
+\end{frame}
+
+
+\section{Ước lượng chi phí tính toán}
+\begin{frame}{Ước lượng chi phí tính toán}
+Thứ hai, làm thế nào để xác định chi phí để giải một bài toán?\\
+Câu trả lời tốt nhất là \textit{số giây} mà máy tính cần để giải bài toán
+\begin{itemize}
+\item Tuy nhiên, không phải mọi người đều dùng chung một kiểu máy tính.
+\item Các công nghệ dành cho máy tính thay đổi nhanh chóng.
+\item Việc đề xuất dùng một mẫu máy tính làm chuẩn chung cho việc đánh giá thuật toán là khó khả thi.
 \end{itemize}
 \end{frame}
 
+\begin{frame}{Ước lượng chi phí tính toán (cont.)}
+Một giải pháp thay thế
+\begin{itemize}
+\item Thuật toán nói chung là các quá trình lặp đi lặp lại. Do đó, ta có thể sử dụng \textit{số lần lặp} làm thước đo.
+\item Số lần lặp của một thuật toán \textbf{không phụ thuộc} vào tốc độ tính toán máy tính.
+\item Thời gian để giải một bài toán = số lần lặp cần để giải bài toán $\times$ thời gian cần để máy tính thực hiện một lần lặp.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ước lượng chi phí tính toán (cont.)}  
+\begin{itemize}
+\item Với các thuật toán khác nhau trong cùng một lớp thuật toán chung, thời gian cần để thực hiện một lần lặp có thể giống nhau giữa các thuật toán.\\
+$\rightarrow$ Việc chọn số lần lặp làm thước đo là phù hợp
+\item Tuy nhiên, khi ta muốn so sánh hai thuật toán hoàn toàn khác nhau, việc chọn số lần lặp để ước lượng chi phí là không có ý nghĩa.
+\item  Hiện tại, chúng ta sẽ ước lượng chi phí để giải một bài toán quy hoạch tuyến tính bằng cách đếm số lần lặp cần thiết để giải nó.
+\end{itemize}
+\end{frame}
 
 \section{Đánh giá trường hợp xấu nhất}
+\begin{frame}{Nhắc lại phương pháp đơn hình}
+Cho bài toán QHTT có $n$ biến, $m$ ràng buộc.
+Hàm mục tiêu
+$$
+f = \sum_{j=1}^{n}c_jx_j \rightarrow \max\ (\min)
+$$
+Hệ các ràng buộc
+\begin{equation*}
+\begin{aligned}
+x_{Bi} + \sum_{j \notin B}a_{ij}x_{Bj} &= b_i, &i = \overline{1, m}\\
+x_j &\leq 0, &j = \overline{1, n}
+\end{aligned}
+\end{equation*}
+Với $b \leq 0$, bài toán có phương án cơ bản ban đầu
+\begin{equation*}
+\begin{aligned}
+x_{B_i}^0 &= b_i, &i = \overline{1, m}\\
+x_j^0 &= 0, &j \notin B
+\end{aligned}
+\end{equation*}
+\end{frame}
+
+\begin{frame}{Nhắc lại Phương pháp đơn hình (cont.)}
+\textbf{Bước 1:} Lập bảng đơn hình xuất phát
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|}
+\hline
+Cơ sở & Hệ số & Phương án & $c_1$ & $c_2$ & $...$ & $c_n$\\
+\hline
+$x_1$ & $c_1$ & $b_1$ & $a_{11}$ & $a_{12}$ & $...$ & $a_{1n}$ \\
+$x_2$ & $c_2$ & $b_2$ & $a_{21}$ & $a_{22}$ & $...$ & $a_{2n}$ \\
+$\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$ & $\vdots$\\
+$x_m$ & $c_m$ & $b_m$ & $a_{m1}$ & $a_{m2}$ & $...$ & $a_{mn}$\\
+\hline
+$f$ & & $\Delta_0$ & $\Delta_1$ & $\Delta_2$ & $...$ & $\Delta_n$ \\
+\hline
+\end{tabular}
+\end{table}
+trong đó
+$$
+\Delta_0 = \sum^{m}_{i=1}c_{i}.b_i,\ \Delta_i = \sum^{m}_{i=1}c_i.a_{ij} - c_j
+$$
+
+\end{frame}
+
+\begin{frame}{Nhắc lại Phương pháp đơn hình (cont.)}
+\textbf{Bước 2:} Biện luận
+\begin{itemize}
+\item Trong bài toán tìm \textbf{min}, thuật toán dừng khi tất cả $\Delta \leq 0$. Nếu còn $\Delta > 0$, ta chọn số lớn nhất, và trên cột tương ứng, ta chọn phần tử xoay $a_{ij}$ theo tiêu chí: nó là số dương và tỷ số $\dfrac{b_{i}}{a_{ij}}$ là nhỏ nhất.
+\item Trong bài toán tìm \textbf{max}, thuật toán dừng khi tất cả $\Delta \geq 0$. Nếu còn $\Delta < 0$, ta chọn số âm nhỏ nhất, và trên cột tương ứng, ta chọn phần tử xoay $a_{ij}$ theo tiêu chí: nó là số dương và tỷ số $\dfrac{b_{i}}{a_{ij}}$ là nhỏ nhất.
+\end{itemize}
+Ta chọn được phần tử xoay và thực hiện phép khử để tìm PA mới.
+\end{frame}
+
 \begin{frame}{Đánh giá trường hợp xấu nhất}
+Một vài nhận xét:
 \begin{itemize}
 \item Số phương án chấp nhận được tối đa có thể chọn là $\displaystyle \binom{n + m}{n}$.
 \item Trong trường hợp xấu nhất, $n + m$ đạt giá trị lớn nhất khi $m = n$.
-\item Ta có thể ước lượng một chặn trên và chặn dưới của $\displaystyle \binom{2n}{n}$\cite{Vanderbei2020}:
+\end{itemize}
+Khi đó số phương án chấp nhận được tối đa có thể chọn:
+$$
+\displaystyle \binom{n + n}{n} = \binom{2n}{n}
+$$
+Ta cũng có thể ước lượng một chặn trên và chặn dưới của thuật toán\cite{Vanderbei2020}:
 $$
 \frac{2^{2n}}{2n} \leq \binom{2n}{n} \leq 2^{2n} \ (n \in \mathbb{N^+})
 $$
-\end{itemize}
 \end{frame}
+
 \begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Chứng minh}
 \begin{theorem}[Xấp xỉ Stirling\cite{weisstein}]
 $$
@@ -189,9 +295,9 @@ Trong trường hợp xấu nhất, thuật toán có độ phức tạp thuộc
 
 \begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Năm 1972, V. Klee and G.J. Minty\cite{klee1970good} đề xuất bài toán Minty-Klee, theo đó phương pháp đơn hình cần ít nhất $2^n - 1$ lần lặp để giải:
-\begin{equation*}
+$$
 \sum_{j = 1}^{n} 2^{n - j} x_j \rightarrow \max
-\end{equation*}
+$$
 các ràng buộc
 \begin{equation*}
 \begin{aligned}
@@ -562,7 +668,7 @@ Dựa vào đồ thị, ta có được thông tin:
 \item Với mỗi giá trị $n$ + $m$, có vẻ như sẽ có 1 chặn trên cho số lượng phần tử xoay (giá trị trục tung)
 \item Có rất nhiều bài toán được giải rất nhanh nhưng giá trị $n$ + $m$ lại lớn
 \end{itemize}
-$\Rightarrow$ Có thể $n$ + $m$ không phải là một giá trị khảo sát tốt, ta sẽ thử 1 góc nhìn khác
+$\rightarrow$ Có thể $n$ + $m$ không phải là một giá trị khảo sát tốt, ta sẽ thử 1 góc nhìn khác
 \end{frame}
 
 \begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
@@ -582,7 +688,7 @@ Ta thu được nhận xét:
 
 \begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
 Dựa vào những thông tin này, ta dự đoán rằng, 1 bài toán "dễ" sẽ là bài toán sao cho $m$ hoặc $n$ sẽ nhỏ 1 cách tương đối với nhau \\
-$\Rightarrow$ Ta sẽ kiểm chứng bằng việc thử thay đổi giá trị khảo sát trục hoành thành $\min(m, n)$ \\
+$\rightarrow$ Ta sẽ kiểm chứng bằng việc thử thay đổi giá trị khảo sát trục hoành thành $\min(m, n)$ \\
 \end{frame}
 
 \begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
