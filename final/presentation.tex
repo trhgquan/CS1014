@@ -4,6 +4,7 @@
 \usepackage{amsmath}
 \usepackage{listings}
 \usepackage{xcolor}
+\usepackage{multicol}
 \usefonttheme{structurebold}
 \usetheme{Rochester}
 
@@ -38,15 +39,17 @@
 
 \addbibresource{presentation.bib}
 
+\setbeamertemplate{footline}[frame number]
+
 \setbeamertemplate{navigation symbols}{\insertlogo}
 
 \begin{document}
-\author{Thu-Ngan Doan, Hoang-Quan Tran, Tan-Tho Huynh, Nhat-Dang Su, Diem-Uyen Phan-Dang}
-\title{Efficiency of the Simplex Method}
-\subtitle{Investigating on how fast Simplex Method will solve a problem in a given size.}
+\author{Đoàn Thu Ngân, Trần Hoàng Quân, Huỳnh Tấn Thọ, Sử Nhật Đăng, Phan Đặng Diễm Uyên}
+\title{Tính hiệu quả của Phương pháp Đơn hình}
+\subtitle{Tìm hiểu hiệu năng của Phương pháp Đơn hình khi giải một bài toán QHTT có kích thước cố định.}
 \logo{\includegraphics[scale=.2]{img/fithcmuslogo.png}}
 \institute{VNUHCM - University of Science}
-\date{Spring 2022}
+%\date{Spring 2022}
 \subject{CSC10104 - Linear Programming}
 
 \setbeamercovered{transparent}
@@ -61,33 +64,88 @@
 \tableofcontents
 \end{frame}
 
-\section{Giới thiệu}
-\begin{frame}{Giới thiệu}
-
-\end{frame}
-
-\section{Performance Measures}
-\begin{frame}{Performance Measures}
-Can be divied into two types:
+\section{Ước lượng hiệu năng thuật toán}
+\begin{frame}{Ước lượng hiệu năng thuật toán}
+Xét các bài toán có cùng kích thước cố định, việc ước lượng hiệu năng có thể được chia thành 2 loại:
 \begin{itemize}
-\item Worst case: asking how much efforts is needed to solve all problems of a given \textit{size}
-\item Average case: looking at the average amount of effort, averaging over all problems of a giving \textit{size}. 
+\item Trường hợp xấu nhất: Tính toán chi phí cần thiết để giải bài toán \textbf{phức tạp nhất} trong số các bài toán đã cho.
+\item Trường hợp trung bình: Tính toán chi phí \textbf{trung bình} khi giải các bài toán có cùng kích thước.
 \end{itemize}
-Worst-case analyses are generally easier than Average-case.
+Dễ thấy, trường hợp xấu nhất nhìn chung dễ ước lượng hơn so với trường hợp trung bình.
 \end{frame}
 
-\section{Measuring the Size of a Problem}
-\begin{frame}{Measuring the Size of a Problem}
-
+\begin{frame}{Ước lượng hiệu năng thuật toán (cont.)}
+\begin{multicols}{2}
+Để đưa ra một ước lượng cho trường hợp xấu nhất
+\begin{itemize}
+\item Ta tìm một chi phí \textit{cận trên}.
+\item Đưa ra một ví dụ chứng minh thuật toán đạt được chi phí cận này.
+\end{itemize}
+\columnbreak
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{img/worst-case.png}
+\caption{Đồ thị biểu diễn chi phí thuật toán trong trường hợp xấu nhất}
+\end{figure}
+\end{multicols}
 \end{frame}
 
-\section{Measuring the Effort to Solve a Problem}
-\begin{frame}{Measuring the Effort to Solve a Problem}
-
+\begin{frame}{Ước lượng hiệu năng thuật toán (cont.)}
+\begin{multicols}{2}
+Để ước lượng  trường hợp trung bình, ta cần một \textit{mô hình ngẫu nhiên}\footnote{stochastic model} từ các bài toán quy hoạch tuyến tính được tạo \textit{ngẫu nhiên}. Từ đây, ta phát sinh 2 vấn đề:
+\begin{itemize}
+\item Ta không rõ làm thế nào để tạo ra một mô hình như vậy.
+\item Sau khi có mô hình, ta phải đánh giá chi phí cho \textbf{mọi} bài toán của mô hình trên.
+\end{itemize}
+\columnbreak
+\begin{figure}
+\centering
+\includegraphics[width=\linewidth]{img/average-case.png}
+\caption{Đồ thị biểu diễn chi phí thuật toán trong trường hợp trung bình}
+\end{figure}
+\end{multicols}
 \end{frame}
 
-\section{Worst-case Analysis of the Simplex Method}
-\begin{frame}{Worst-case Analysis of the Simplex Method}
+\section{Ước lượng kích thước bài toán}
+\begin{frame}{Ước lượng kích thước bài toán}
+Đầu tiên, làm cách nào để xác định quy mô của một vấn đề?
+\begin{itemize}
+\item Thông thường, chúng ta sử dụng hai tham số m và n là tổng số phần tử dữ liệu để mô tả quy mô của một bài toán. 
+\item Nhưng tích số mn có một số nhược điểm nhất định khi có nhiều hoặc thậm chí hầu hết các phần tử dữ liệu bằng 0.
+\item Vì vậy, có lẽ thước đo tốt nhất về quy mô của bài toán không phải là số phần tử dữ liệu mà là số bit thực tế cần thiết để lưu trữ tất cả dữ liệu trên máy tính. Biện pháp này phổ biến trong hầu hết các nhà khoa học máy tính và thường được ký hiệu là L.
+\item Tuy nhiên, ở đây chúng ta sẽ chỉ tập trung vào m và n để mô tả quy mô của một vấn đề.
+\end{itemize}
+\end{frame}
+
+
+\section{Ước lượng chi phí để giải một bài toán}
+\begin{frame}{Ước lượng chi phí để giải một bài toán}
+Thứ hai, làm thế nào để xác định lượng công việc cần thiết để giải một bài toán?
+\begin{itemize}
+\item Câu trả lời tốt nhất là số giây mà máy tính cần để giải bài toán. Tuy nhiên, không phải ai cũng dùng chung một kiểu máy tính, và công nghệ máy tính thì luôn thay đổi nhanh chóng.
+\item May mắn thay, có một sự thay thế khá hợp lý. Bởi vì thuật toán nói chung là các quá trình lặp đi lặp lại, do đó, ta có thể sử dụng số lần lặp làm thước đo thay thế. Vì vậy, thời gian để giải quyết một vấn đề có thể được tính thành số lần lặp cần thiết để giải quyết vấn đề nhân với lượng thời gian cần thiết để thực hiện mỗi lần lặp.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ước lượng chi phí để giải một bài toán (cont.)}
+Thứ hai, làm thế nào để xác định lượng công việc cần thiết để giải một bài toán?
+\begin{itemize}
+\item Câu trả lời tốt nhất là số giây mà máy tính cần để giải bài toán. Tuy nhiên, không phải ai cũng dùng chung một kiểu máy tính, và công nghệ máy tính thì luôn thay đổi nhanh chóng.
+\item May mắn thay, có một sự thay thế khá hợp lý. Bởi vì thuật toán nói chung là các quá trình lặp đi lặp lại, do đó, ta có thể sử dụng số lần lặp làm thước đo thay thế. Vì vậy, thời gian để giải quyết một vấn đề có thể được tính thành số lần lặp cần thiết để giải quyết vấn đề nhân với lượng thời gian cần thiết để thực hiện mỗi lần lặp.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ước lượng chi phí để giải một bài toán (cont.)}  
+\begin{itemize}
+\item Yếu tố đầu tiên, số lần lặp lại, không phụ thuộc vào máy tính và do đó, là một thay thế hợp lý cho thời gian thực tế. 
+\item Đại diện này hữu ích khi so sánh các thuật toán khác nhau trong cùng một lớp thuật toán chung, trong đó thời gian mỗi lần lặp có thể được mong đợi là giống nhau giữa các thuật toán; Tuy nhiên, nó trở nên vô nghĩa khi người ta muốn so sánh hai thuật toán hoàn toàn khác nhau.
+\item  Hiện tại, chúng ta sẽ đo lượng nỗ lực để giải một bài toán QHTT bằng cách đếm số lần lặp cần thiết để giải nó.
+\end{itemize}
+\end{frame}
+
+
+\section{Đánh giá trường hợp xấu nhất}
+\begin{frame}{Đánh giá trường hợp xấu nhất}
 \begin{itemize}
 \item Số phương án chấp nhận được tối đa có thể chọn là $\displaystyle \binom{n + m}{n}$.
 \item Trong trường hợp xấu nhất, $n + m$ đạt giá trị lớn nhất khi $m = n$.
@@ -97,7 +155,7 @@ $$
 $$
 \end{itemize}
 \end{frame}
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Proof}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Chứng minh}
 \begin{theorem}[Xấp xỉ Stirling\cite{weisstein}]
 $$
 \displaystyle
@@ -112,7 +170,7 @@ Khai triển $\displaystyle \binom{2n}{n} = \frac{(2n)!}{(n!)^2}$\footnote{$\bin
 Qua đó, $\displaystyle \binom{2n}{n} \operatorname*{\sim}_{n\to\infty} \frac{2\sqrt{\pi n} \left(\frac{2n}{e}\right)^{2n}}{2\pi n \left(\frac{n}{e}\right)^{2n}} =  \frac{2^{2n}}{\sqrt{\pi n}}$
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Proof}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Chứng minh}
 \begin{proof}
 Gọi
 $$
@@ -129,7 +187,7 @@ $$
 Trong trường hợp xấu nhất, thuật toán có độ phức tạp thuộc nhóm $\mathcal{O}(2^{2n})$. $2^{2n}$ \textbf{rất lớn} dù $n$ không lớn lắm. (e.g $n = 25$, $2^{50} = 1.1259\times 10^{15}$)
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Năm 1972, V. Klee and G.J. Minty\cite{klee1970good} đề xuất bài toán Minty-Klee, theo đó phương pháp đơn hình cần ít nhất $2^n - 1$ lần lặp để giải:
 \begin{equation*}
 \sum_{j = 1}^{n} 2^{n - j} x_j \rightarrow \max
@@ -153,7 +211,7 @@ x_1 &\leq 1\\
 $$
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Dễ thấy đây chỉ là tập các cận trên của mỗi biến:
 $$
 \begin{array}{lll}
@@ -162,7 +220,7 @@ $$
 0 \leq x_3 &\leq 10^4
 \end{array}
 $$
-Do đó, tập các ràng buộc trở thành tập các cận trên, biến miền ràng buộc trên không gian $n$ chiều thành một siêu lập phương:
+Do đó, tập các ràng buộc trở thành tập các cận trên (upper-bound set), biến miền ràng buộc trên không gian $n$ chiều thành một siêu lập phương:
 $$
 \begin{array}{lll}
 0 \leq x_1 &\leq 1\\
@@ -173,7 +231,7 @@ $$
 $$
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Miền chấp thuận của bài toán Klee-Minty còn được gọi là Siêu lập phương\footnote{Siêu lập phương $n$ chiều có $2^n$ đỉnh\cite{10945-3852}} Klee-Minty.
 \begin{figure}
 \includegraphics[scale=.15]{img/klee-minty-cube.png}
@@ -182,7 +240,7 @@ Miền chấp thuận của bài toán Klee-Minty còn được gọi là Siêu 
 Phương pháp đơn hình sẽ xuất phát từ 1 đỉnh, đi qua tất cả các đỉnh trước khi tìm ra phương án tối ưu.
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Đặt $\beta_i = 100^{i - 1}$. Bài toán Minty-Klee có dạng tổng quát:
 $$
 \sum_{j = 1}^n 2^{n - j}x_j - \frac{1}{2}\sum_{j = 1}^n 2^{n - j}\beta_j \rightarrow \max
@@ -196,7 +254,7 @@ x_j &\geq 0 &(j = 1, 2, .., n)
 $$
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Với $n = 3$, bài toán được phát biểu như sau:
 $$
 4x_1 + 2x_2 + x_3 - 2\beta_1 - \beta_2 - \frac{1}{2}\beta_3 \rightarrow \max
@@ -225,7 +283,7 @@ $$
 Cơ sở: $(x_4, x_5, x_6)$
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Bảng đơn hình xuất phát:
 \begin{table}[H]
 \centering
@@ -249,7 +307,7 @@ $x_6$ & 0 & $4\beta_1 + 2\beta_2 + \beta_3$ & 8 & 4 & 1 & 0 & 0 & 1 \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Lần lặp thứ 1:
 \begin{table}[H]
 \centering
@@ -273,7 +331,7 @@ $x_6$ & 0 & $-4\beta_1 + 2\beta_2 + \beta_3$ & 0 & 4 & 1 & -8 & 0 & 1 \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Lần lặp thứ 2:
 \begin{table}[H]
 \centering
@@ -297,7 +355,7 @@ $x_6$ & 0 & $4\beta_1 - 2\beta_2 + \beta_3$ & 0 & 0 & 1 & 8 & -4 & 1 \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Lần lặp thứ 3:
 \begin{table}[H]
 \centering
@@ -320,7 +378,7 @@ $x_6$ & 0 & $-4\beta_1 - 2\beta_2 + \beta_3$ & -8 & 0 & 1 & 0 & -4 & 1 \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Lần lặp thứ 4:
 \begin{table}[H]
 \centering
@@ -344,7 +402,7 @@ $x_3$ & 1 & $-4\beta_1 - 2\beta_2 + \beta_3$ & -8 & 0 & 1 & 0 & -4 & 1 \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Lần lặp thứ 5
 \begin{table}[H]
 \centering
@@ -367,7 +425,7 @@ $x_3$ & 1 & $4\beta_1 - 2\beta_2 + \beta_3$ & 0 & 0 & 1 & 8 & -4 & 1 \\
 \end{itemize}
 \end{frame}
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Lần lặp thứ 6
 \begin{table}[H]
 \centering
@@ -391,7 +449,7 @@ $x_3$ & 1 & $-4\beta_1 + 2\beta_2 + \beta_3$ & 0 & 4 & 1 & -8 & 0 & 1 \\
 \end{frame}
 
 
-\begin{frame}{Worst-case Analysis of the Simplex Method (cont.) - Example}
+\begin{frame}{Đánh giá trường hợp xấu nhất (cont.) - Ví dụ}
 Lần lặp thứ 7
 \begin{table}[H]
 \centering
@@ -412,9 +470,9 @@ Tất cả $\Delta \ge 0$, bài toán tìm được phương án tối ưu.
 \end{frame}
 
 
-\section{Empirical Average Performance of the Simplex Method}
-\begin{frame}{Empirical Average Performance of the Simplex Method - Thiết lập bài toán}
-Giả sử ta có một bài toán quy hoạch tuyến tính với n biến và m ràng buộc. Ta gọi:
+\section{Hiệu năng thực tế}
+\begin{frame}{Hiệu năng thực tế - Thiết lập bài toán}
+Giả sử ta có một bài toán QHTT với n biến và m ràng buộc. Ta gọi:
 \begin{itemize}
 \item A là ma trận $m\times n$ chứa các hệ số của hệ ràng buộc
 \item b là ma trận $m\times 1$ chứa các giá trị bên vế phải của hệ ràng buộc
@@ -422,8 +480,8 @@ Giả sử ta có một bài toán quy hoạch tuyến tính với n biến và 
 \end{itemize}
 \end{frame}
 
-\begin{frame}[fragile]{Empirical Average Performance of the Simplex Method (cont.) - Thiết lập bài toán}
-Ta phát sinh ngẫu nhiên một bài toán quy hoạch tuyến tính
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Thiết lập bài toán}
+Ta phát sinh ngẫu nhiên một bài toán QHTT
 \begin{lstlisting}[language=Matlab]
 m = round(10*exp(log(100)*rand()));
 n = round(10*exp(log(100)*rand()));
@@ -434,7 +492,7 @@ c = round(sigma*randn(1,n));
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Empirical Average Performance of the Simplex Method (cont.) - Thiết lập bài toán}
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Thiết lập bài toán}
 Tại mỗi lần lặp, ta chọn \textbf{biến vào} là biến có hệ số lớn nhất trong hàm mục tiêu
 \begin{lstlisting}[language=Matlab]
 iter = 0;
@@ -449,8 +507,8 @@ while max(c) > eps
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Empirical Average Performance of the Simplex Method (cont.) - Thiết lập bài toán}
-Tiếp theo, ta chọn \textbf{biến ra} là biến có tỉ số giữa $b_i$ và $a_{i_k}$ bé nhất
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Thiết lập bài toán}
+Tiếp theo, ta chọn \textbf{biến ra} là biến có tỉ số giữa $b_i$ và $a_{ik}$ bé nhất
 \begin{lstlisting}[language=Matlab]
     nums = b.*(Acol < -eps);
     dens = -Acol.*(Acol < -eps);
@@ -461,7 +519,7 @@ Tiếp theo, ta chọn \textbf{biến ra} là biến có tỉ số giữa $b_i$ 
 Ta có được phần tử xoay
 \end{frame}
 
-\begin{frame}[fragile]{Empirical Average Performance of the Simplex Method (cont.) - Thiết lập bài toán}
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Thiết lập bài toán}
 Cuối cùng, ta cập nhật các hệ số trong hàm mục tiêu, các phương án, và các hệ số ràng buộc
 \begin{lstlisting}[language=Matlab]
     A = A - Acol*Arow/a;
@@ -482,23 +540,113 @@ end
 \end{lstlisting}
 \end{frame}
 
-\begin{frame}[fragile]{Empirical Average Performance of the Simplex Method (cont.) - Kết quả thực nghiệm}
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
 \begin{figure}
 \includegraphics[scale=.5]{img/plot_1.png}
 \caption{Đồ thị log-log thể hiện mối tương quan giữa $m$ + $n$ và số điểm xoay của bảng đơn hình (sample size = 1000)}
 \end{figure}
 \end{frame}
 
-\begin{frame}[fragile]{Empirical Average Performance of the Simplex Method (cont.) - Kết quả thực nghiệm}
-Dựa vào đồ thị, ta có được thông tin: \\
-\textcolor{red}{- Đồ thị trên là đồ thị log-log, nên đừng vội kết luận rằng số điểm xoay tăng xấp xỉ tuyến tính so với $n$ + $m$} \\
-- Trong 1000 mẫu dữ liệu: có 501 mẫu trong dữ liệu có phương án tối ưu, trong khi 499 mẫu còn lại thì không có \\
-- Số lượng bài toán có $m$ > $n$ và $m$ < $n$ là xấp xỉ bằng nhau \\
-- Những bài toán có $m$ > $n$ gần như luôn có phương án tối ưu, và theo chiều ngược lại, $n$ < $m$ lại cho ta những bài toán nhiều khả năng là không có\\
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+Dựa vào đồ thị, ta có được thông tin:
+\begin{itemize}
+\item \textcolor{red}{Đồ thị trên là đồ thị log-log}
+\item Trong 1000 mẫu dữ liệu: có 501 mẫu trong dữ liệu có phương án tối ưu, trong khi 499 mẫu còn lại thì không có
+\item Số lượng bài toán có $m$ > $n$ và $m$ < $n$ là xấp xỉ bằng nhau
+\item Những bài toán có $m$ > $n$ gần như luôn có phương án tối ưu, và theo chiều ngược lại, $m$ < $n$ lại cho ta những bài toán nhiều khả năng là không có
+\end{itemize}
 \end{frame}
 
-\section{References}
-\begin{frame}[allowframebreaks]{References}
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+\begin{itemize}
+\item Với mỗi giá trị $n$ + $m$, có vẻ như sẽ có 1 chặn trên cho số lượng phần tử xoay (giá trị trục tung)
+\item Có rất nhiều bài toán được giải rất nhanh nhưng giá trị $n$ + $m$ lại lớn
+\end{itemize}
+$\Rightarrow$ Có thể $n$ + $m$ không phải là một giá trị khảo sát tốt, ta sẽ thử 1 góc nhìn khác
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+\begin{figure}
+\includegraphics[scale=.5]{img/plot_2.png}
+\caption{Đồ thị log-log với data y hệt đồ thị trước, nhưng thay đổi giá trị khảo sát trục hoành thành $n$}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+Ta thu được nhận xét:
+\begin{itemize}
+\item Ở những điểm \textcolor{blue}{xanh dương}, là những bài toán có phương án tối ưu, ta thấy có sự tương quan rất rõ ràng hơn rất nhiều giữa độ lớn của $n$ với những điểm này
+\item Ở những điểm \textcolor{codegreen}{xanh lục}, là những bài toán không có phương án tối ưu, ta nhận thấy chúng đều phân bố rời rạc,
+\end{itemize}
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+Dựa vào những thông tin này, ta dự đoán rằng, 1 bài toán "dễ" sẽ là bài toán sao cho $m$ hoặc $n$ sẽ nhỏ 1 cách tương đối với nhau \\
+$\Rightarrow$ Ta sẽ kiểm chứng bằng việc thử thay đổi giá trị khảo sát trục hoành thành $\min(m, n)$ \\
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+\begin{figure}
+\includegraphics[scale=.5]{img/plot_3.png}
+\caption{Đồ thị log-log với data y hệt 2 đồ thị trước, nhưng thay đổi giá trị khảo sát trục hoành thành $\min(m, n)$}
+\end{figure}
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+Hoàn hảo! Có vẻ như ta đã tìm được giá trị khảo sát tốt nhất cho cả 2 dạng bài toán \textcolor{blue}{có phương án tối ưu} và \textcolor{codegreen}{vô nghiệm}\\
+Nhận xét: \textcolor{blue}{những điểm xanh dương} ở đồ thị này so với đồ thị trước, gần như không hề thay đổi vị trí\\
+Giải thích: Vì phần lớn bài toán có phương án tối ưu sẽ có $n$ < $m$
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+Sử dụng những kĩ thuật thống kê được đề cập ở Chương 12, ta có thể tìm được đường thẳng hồi quy cho đồ thị trên\\
+Với những \textcolor{blue}{điểm xanh dương}, ta có được phương trình:
+$$
+log T \approx -1.90 + 1.70\log(\min(m, n))
+$$
+Với T là số điểm xoay cần phải thực hiện để giải được 1 bài toán\\
+Biến đổi phương trình, ta được:
+$$
+T \approx e^{-1.90}e^{1.70\log(\min(m, n))} = 0.150\min(m, n)^{1.70}
+$$
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+Tương tự với những \textcolor{codegreen}{điểm xanh lục}, ta có được phương trình:
+$$
+T \approx 0.180\min(m, n)^{1.42}
+$$
+\end{frame}
+
+\begin{frame}{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+\begin{proof}[Kết luận thực nghiệm]
+Số lượng phần tử xoay trong một bài toán có phương án tối ưu  giải bằng phương pháp đơn hình là:
+$$
+\displaystyle
+T \approx 0.150\min(m, n)^{1.70}
+$$
+Số lượng phần tử xoay trong một bài toán không có phương án tối ưu giải bằng phương pháp đơn hình là:
+$$
+\displaystyle
+T \approx 0.180\min(m, n)^{1.42}
+$$
+ 
+Với m là số ràng buộc và n là số biến
+\end{proof}
+
+Nhận xét: T tăng so với $\min(m, n)$ với tốc độ trên tuyến tính (superlinear)
+
+\end{frame}
+
+\begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
+\begin{figure}
+\includegraphics[scale=.5]{img/plot_4.png}
+\caption{Đồ thị với data y hệt 3 đồ thị trước, nhưng không sử dụng đồ thị dạng log-log để thể hiện tốc độ tăng trên tuyến tính của số phần tử xoay}
+\end{figure}
+\end{frame}
+
+\section{Tài liệu tham khảo}
+\begin{frame}[allowframebreaks]{Tài liệu tham khảo}
 \printbibliography
 \end{frame}
 \end{document}
