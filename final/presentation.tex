@@ -112,24 +112,12 @@ Xét các bài toán có cùng kích thước cố định, việc ước lượ
 \end{itemize}
 \end{frame}
 
-
-\section{Ước lượng kích thước bài toán}
-\begin{frame}{Ước lượng kích thước bài toán}
-Đầu tiên, làm cách nào để xác định kích thước của một bài toán?
-\begin{itemize}
-\item Ta thường sử dụng hai tham số m - số ràng buộc và n - số biến. 
-\item Tuy nhiên, tích số mn - tổng số phần tử trong dữ liệu, còn hạn chế khi có nhiều hoặc hầu hết các phần tử dữ liệu bằng 0.
-\item Vì vậy, có lẽ thước đo tốt nhất về quy mô của bài toán không phải là số phần tử dữ liệu mà là số bit thực tế cần thiết để lưu trữ tất cả dữ liệu trên máy tính. Biện pháp này phổ biến trong hầu hết các nhà khoa học máy tính và thường được ký hiệu là L.
-\item Tuy nhiên, ở đây chúng ta sẽ chỉ tập trung vào m và n để mô tả quy mô của một vấn đề.
-\end{itemize}
-\end{frame}
-
 \begin{frame}{Ước lượng kích thước bài toán}
 Đầu tiên, làm cách nào để xác định kích thước bài toán?\\
 \begin{itemize}
-\item Hai tham số được nhắc đến một cách tự nhiên là \textit{m} - số ràng buộc và \textit{n} - số biến.
-\item Tổng số phần tử trong dữ liệu bài toán là \textit{m $\times$ n}.
-\item Kích thước bài toán = \textit{m $\times$ n}.
+\item Hai tham số được nhắc đến một cách tự nhiên là $m$ - số ràng buộc và $n$ - số biến.
+\item Tổng số phần tử trong dữ liệu bài toán là $m\times n$.
+\item Kích thước bài toán = $m\times n$.
 \end{itemize}
 \end{frame}
 
@@ -156,7 +144,7 @@ Tuy nhiên, kết quả \textit{L} còn mơ hồ, không thể xác định rõ 
 \item Số lượng bit đầu vào cần thiết để chỉ rõ các hệ số ràng buộc, hệ số hàm mục tiêu, kết quả vế phải khác 0.
 \item Số lượng bit trong dữ liệu gốc + Số lượng bit trong mô tả bài toán.
 \end{itemize}
-$\rightarrow$ Ta chỉ tập trung vào hai tham số \textit{m} và \textit{n} khi mô tả kích thước bài toán.
+$\rightarrow$ Ta chỉ tập trung vào hai tham số $m$ và $n$ khi mô tả kích thước bài toán.
 \end{frame}
 
 
@@ -167,7 +155,7 @@ Câu trả lời tốt nhất là \textit{số giây} mà máy tính cần để
 \begin{itemize}
 \item Tuy nhiên, không phải mọi người đều dùng chung một kiểu máy tính.
 \item Các công nghệ dành cho máy tính thay đổi nhanh chóng.
-\item Việc đề xuất dùng một mẫu máy tính làm chuẩn chung cho việc đánh giá thuật toán là khó khả thi.
+\item Việc đề xuất dùng một mẫu máy tính làm chuẩn chung cho việc đánh giá thuật toán là không khả thi.
 \end{itemize}
 \end{frame}
 
@@ -185,7 +173,12 @@ Một giải pháp thay thế
 \item Với các thuật toán khác nhau trong cùng một lớp thuật toán chung, thời gian cần để thực hiện một lần lặp có thể giống nhau giữa các thuật toán.\\
 $\rightarrow$ Việc chọn số lần lặp làm thước đo là phù hợp
 \item Tuy nhiên, khi ta muốn so sánh hai thuật toán hoàn toàn khác nhau, việc chọn số lần lặp để ước lượng chi phí là không có ý nghĩa.
-\item  Hiện tại, chúng ta sẽ ước lượng chi phí để giải một bài toán quy hoạch tuyến tính bằng cách đếm số lần lặp cần thiết để giải nó.
+\end{itemize}
+\end{frame}
+
+\begin{frame}{Ước lượng chi phí tính toán (cont.)}  
+\begin{itemize}
+\item  Hiện tại, chúng ta sẽ ước lượng chi phí để giải một bài toán quy hoạch tuyến tính bằng cách đếm số lần lặp (hay chính là số phần tử xoay - pivot) cần thiết để giải nó.
 \end{itemize}
 \end{frame}
 
@@ -242,7 +235,7 @@ $$
 \item Trong bài toán tìm \textbf{min}, thuật toán dừng khi tất cả $\Delta \leq 0$. Nếu còn $\Delta > 0$, ta chọn số lớn nhất, và trên cột tương ứng, ta chọn phần tử xoay $a_{ij}$ theo tiêu chí: nó là số dương và tỷ số $\dfrac{b_{i}}{a_{ij}}$ là nhỏ nhất.
 \item Trong bài toán tìm \textbf{max}, thuật toán dừng khi tất cả $\Delta \geq 0$. Nếu còn $\Delta < 0$, ta chọn số âm nhỏ nhất, và trên cột tương ứng, ta chọn phần tử xoay $a_{ij}$ theo tiêu chí: nó là số dương và tỷ số $\dfrac{b_{i}}{a_{ij}}$ là nhỏ nhất.
 \end{itemize}
-Ta chọn được phần tử xoay và thực hiện phép khử để tìm PA mới.
+Ta chọn được phần tử xoay và thực hiện phép khử để tìm phương án mới.
 \end{frame}
 
 \begin{frame}{Đánh giá trường hợp xấu nhất}
@@ -710,37 +703,37 @@ Với những \textcolor{blue}{điểm xanh dương}, ta có được phương t
 $$
 log T \approx -1.90 + 1.70\log(\min(m, n))
 $$
-Với T là số điểm xoay cần phải thực hiện để giải được 1 bài toán\\
+Với $T$ là số lần lặp (số điểm xoay) cần phải thực hiện để giải được 1 bài toán\\
 Biến đổi phương trình, ta được:
 $$
-T \approx e^{-1.90}e^{1.70\log(\min(m, n))} = 0.150\min(m, n)^{1.70}
+T \approx e^{-1.90}e^{1.70\log(min(m, n))} = 0.150min(m, n)^{1.70}
 $$
 \end{frame}
 
 \begin{frame}[fragile]{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
 Tương tự với những \textcolor{codegreen}{điểm xanh lục}, ta có được phương trình:
 $$
-T \approx 0.180\min(m, n)^{1.42}
+T \approx 0.180min(m, n)^{1.42}
 $$
 \end{frame}
 
 \begin{frame}{Hiệu năng thực tế (cont.) - Kết quả thực nghiệm}
 \begin{proof}[Kết luận thực nghiệm]
-Số lượng phần tử xoay trong một bài toán có phương án tối ưu  giải bằng phương pháp đơn hình là:
+Số lần lặp (số phần tử xoay) trong một bài toán có phương án tối ưu  giải bằng phương pháp đơn hình là:
 $$
 \displaystyle
-T \approx 0.150\min(m, n)^{1.70}
+T \approx 0.150min(m, n)^{1.70}
 $$
-Số lượng phần tử xoay trong một bài toán không có phương án tối ưu giải bằng phương pháp đơn hình là:
+Số lần lặp (số phần tử xoay) trong một bài toán không có phương án tối ưu giải bằng phương pháp đơn hình là:
 $$
 \displaystyle
-T \approx 0.180\min(m, n)^{1.42}
+T \approx 0.180min(m, n)^{1.42}
 $$
  
 Với m là số ràng buộc và n là số biến
 \end{proof}
 
-Nhận xét: T tăng so với $\min(m, n)$ với tốc độ trên tuyến tính (superlinear)
+Nhận xét: $T$ tăng so với $min(m, n)$ với tốc độ trên tuyến tính (superlinear)
 
 \end{frame}
 
