@@ -1,0 +1,157 @@
+\documentclass[12pt]{article}
+
+\usepackage{amsmath}
+\usepackage{amsfonts}
+\usepackage[affil-it]{authblk}
+\usepackage{float}
+\usepackage{fancyhdr}
+\usepackage{graphicx}
+\usepackage[colorlinks=true,linkcolor=blue, citecolor=red]{hyperref}
+\usepackage{url}
+\usepackage[top=.75in, left=.5in, right=.5in, bottom=1in]{geometry}
+\usepackage[utf8]{vietnam}
+\setlength{\headheight}{29.43912pt}
+
+% \graphicspath{PATH_TO_GRAPHIC_FOLDER}
+
+\newcommand{\coursename}{CSC10104 - Quy hoạch tuyến tính}
+\newcommand{\reportname}{Một ví dụ cho bài toán Klee-Minty với $n = 4$}
+
+\pagestyle{fancy}
+\lhead{
+\reportname
+}
+\rhead{
+Trường Đại học Khoa học Tự nhiên - ĐHQG HCM\\
+\coursename
+}
+\lfoot{\LaTeX\ by \href{https://github.com/trhgquan}{Quan, Tran Hoang}}
+
+\title{\textbf{\reportname}}
+\author{Trần Hoàng Quân%
+  \thanks{MSSV: 19120338; Email: \texttt{19120338@student.hcmus.edu.vn}}}
+\affil{Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM}
+
+\author{Đoàn Thu Ngân%
+  \thanks{MSSV: 19120xxx; Email: \texttt{19120xxx@student.hcmus.edu.vn}}}
+\affil{Trường Đại học Khoa học Tự nhiên, ĐHQG-HCM}
+
+
+\begin{document}
+\maketitle
+
+\begin{abstract}
+Trong bài này, nhóm nhắc lại định nghĩa về Bài toán Klee-Minty \ref{klee-minty-revised}. Để đưa ra một ví dụ minh họa, nhóm chọn Bài tập 4.5 từ quyển Linear Programming của tác giả Robert J. Vanderbei \ref{Vanderbei-4.5}. Qua đó, nhóm đưa ra kết luận rằng bài toán Klee-Minty cần ít nhất $2^n - 1$ lần lặp để tìm ra được phương án tối ưu, với $n$ là số ràng buộc và số biến.
+\end{abstract}
+
+\section{Nhắc lại bài toán Klee-Minty}\label{klee-minty-revised}
+Bài toán Klee-Minty là một bài toán quy hoạch tuyến tính có $n$ ràng buộc và $n$ biến, được đưa ra bởi V.Klee và G.J. Minty vào năm 1972\cite{Vanderbei2020}. Theo đó, để giải bài toán này dùng Phương pháp đơn hình cần ít nhất $2^{n} - 1$ lần lặp (hay nói cách khác, cần kẻ $2^{n} - 1$ bảng đơn hình để tìm ra phương án tối ưu). Bài toán được phát biểu như sau:\\\\
+Hàm mục tiêu
+$$
+f(x_1, .., x_n) = \sum_{j = 1}^n 2^{n - j}x_j \rightarrow \max
+$$
+các ràng buộc
+\begin{equation*}
+\begin{aligned}
+2\sum_{j = 1}^{i - 1} 2^{i - j}x_j + x_i &\leq 100^{i - 1}\ &i = \overline{1, n}\\
+x_j &\geq 0\ &j = \overline{1, n}
+\end{aligned}
+\end{equation*}
+Tổng quát hóa: đặt $\beta_i = 100^{i - 1}$. Khi đó dạng tổng quát hóa của Bài toán Klee-Minty trở thành:\\\\
+Hàm mục tiêu
+$$
+\sum_{j = 1}^n 2^{n - j}x_j - \frac{1}{2}\sum_{j = 1}^{n} 2^{n - j}\beta_j \rightarrow \max
+$$
+các ràng buộc
+\begin{equation*}
+\begin{aligned}
+\sum_{j = 1}^{i - 1} 2^{i - j} x_j + x_i &\leq \sum_{j = 1}^{i - 1} 2^{i - j} \beta_j + \beta_i\ &i = \overline{1, n}\\
+x_j &\leq 0\ &j = \overline{1, n}
+\end{aligned}
+\end{equation*}
+Bài toán Klee-Minty là ví dụ cho trường hợp xấu nhất của Phương pháp đơn hình, khi đó ta tốn nhiều chi phí tính toán nhất để giải quyết một bài toán.
+
+\section{Bài tập 4.5 sách Vanderbei}\label{Vanderbei-4.5}
+\subsection{Đề bài}
+Giải bài toán Klee-Minty với $n = 4$. Với trường hợp $n = 4$, hàm mục tiêu trở thành
+$$
+f(x_1, x_2, x_3, x_4) = 8x_1 + 4x_2 + 2x_3 + x_4 - 4\beta_1 - 2\beta_2 - \beta_3 - \frac{1}{2}\beta_4 \rightarrow \max
+$$
+các ràng buộc
+$$
+\left\{
+\begin{array}{lll}
+x_1 &\leq \beta_1 \\
+4x_1 + x_2 &\leq 2\beta_1 + \beta_2 \\
+8x_1 + 4x_2 + x_3 &\leq 4\beta_1 + 2\beta_2 + \beta_3 \\
+16x_1 + 8x_2 + 4x_3 + x_4 &\leq 8\beta_1 + 4\beta_2 + 2\beta_3 + \beta_4 \\
+x_j &\geq 0\ &j = \overline{1, 4}
+\end{array}
+\right.
+$$
+
+\subsection{Lời giải}
+Bổ sung các biến $x_5, x_6, x_7, x_8$ để biến hệ ràng buộc về dạng đẳng thức:
+$$
+\left\{
+\begin{array}{lll}
+x_1 + x_5 &= \beta_1 \\
+4x_1 + x_2 + x_6 &= 2\beta_1 + \beta_2 \\
+8x_1 + 4x_2 + x_3 + x_7 &= 4\beta_1 + 2\beta_2 + \beta_3 \\
+16x_1 + 8x_2 + 4x_3 + x_4 + x_8 &= 8\beta_1 + 4\beta_2 + 2\beta_3 + \beta_4 \\
+x_j &\geq 0\ &j = \overline{1, 4}
+\end{array}
+\right.
+$$
+Bảng đơn hình xuất phát như sau:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 8 & 4 & 2 & 1 & 0 & 0 & 0 & 0 \\
+\hline
+$x_5$ & 0 & $\beta_1$ & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+$x_6$ & 0 & $2\beta_1 + \beta_2$ & 4 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+$x_7$ & 0 & $4\beta_1 + 2\beta_2 + \beta_3$ & 8 & 4 & 1 & 0 & 0 & 0 & 1 & 0 \\
+$x_8$ & 0 & $8\beta_1 + 4\beta_2 + 2\beta_3 + \beta_4$ & 16 & 8 & 4 & 1 & 0 & 0 & 0 & 1 \\
+\hline
+\multicolumn{2}{|c|}{$f_{\max}$}
+& 0 & -8 & -4 & -2 & -1 & 0 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\subsubsection{Lần lặp thứ 1}
+\begin{itemize}
+\item Nhận thấy có 3 cột có $\Delta < 0$, ta chọn cột có $\Delta = -8$.
+\item Xét tỷ lệ $\displaystyle \frac{\beta_1}{1} < \frac{2\beta_1 + \beta_2}{4} < \frac{4\beta_1 + 2\beta_2 + \beta_3}{8} < \frac{8\beta_1 + 4\beta_2 + 2\beta_3 + \beta_4}{16}$, nên ta chọn dòng 1.
+\item Khi đó $x_5$ ra, $x_1$ vào.
+\end{itemize}
+Tiến hành biến đổi:
+\begin{itemize}
+\item $d_1 \leftarrow d_1$
+\end{itemize}
+Bảng đơn hình cho lần lặp đầu tiên như sau:
+\begin{table}[H]
+\centering
+\begin{tabular}{|c|c|c|c|c|c|c|c|c|c|c|}
+\hline
+CS & HS & PA & 8 & 4 & 2 & 1 & 0 & 0 & 0 & 0 \\
+\hline
+$x_1$ & 8 & $\beta_1$ & 1 & 0 & 0 & 0 & 1 & 0 & 0 & 0 \\
+$x_6$ & 0 & $2\beta_1 + \beta_2$ & 4 & 1 & 0 & 0 & 0 & 1 & 0 & 0 \\
+$x_7$ & 0 & $4\beta_1 + 2\beta_2 + \beta_3$ & 8 & 4 & 1 & 0 & 0 & 0 & 1 & 0 \\
+$x_8$ & 0 & $8\beta_1 + 4\beta_2 + 2\beta_3 + \beta_4$ & 16 & 8 & 4 & 1 & 0 & 0 & 0 & 1 \\
+\hline
+\multicolumn{2}{|c|}{$f_{\max}$}
+& $8\beta_1$ & -8 & -4 & -2 & -1 & 0 & 0 & 0 & 0 \\
+\hline
+\end{tabular}
+\end{table}
+
+\cleardoublepage
+\phantomsection
+\addcontentsline{toc}{section}{Tài liệu}
+\bibliographystyle{plain}
+\bibliography{sample}
+\end{document}
